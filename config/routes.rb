@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :author_books
   get 'books/top_rated', to: 'books#top_rated'
   resources :books
   resources :authors
