@@ -26,7 +26,7 @@ namespace :db do
         Book.create!(
           isbn: Faker::Code.isbn,
           name: Faker::Book.title,
-          author: author,
+          authors: [author],
           publish_date: Faker::Date.between(from: '1950-01-01', to: Date.today),
           genre: [Faker::Book.genre, Faker::Book.genre],
           rating: rand(1.0..5.0).round(2),
