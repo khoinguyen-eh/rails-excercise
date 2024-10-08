@@ -6,7 +6,7 @@ require_relative "config/application"
 Rails.application.load_tasks
 
 namespace :db do
-  desc "Populate the database with authors and books"
+  desc "Populate the database with authors and books for V1"
   task populate_authors_and_books: :environment do
     # Number of authors and books to create
     number_of_authors = 100
@@ -14,7 +14,7 @@ namespace :db do
 
     puts "Creating #{number_of_authors} authors and #{number_of_authors * books_per_author} books..."
 
-    number_of_authors.times do |i|
+    number_of_authors.times do |_|
       author = Author.create!(
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
@@ -36,5 +36,23 @@ namespace :db do
     end
 
     puts "Finished populating authors and books."
+  end
+
+  desc "Add a new author to existing books for V2"
+  task add_author_to_books: :environment do
+    max_numb_book_authors = 5
+    max_author_id = Author.maximum(:id)
+
+    Book.all.each do |book|
+      numb_authors = rand(1..max_numb_book_authors)
+      author_ids = (1..max_author_id).to_a.sample(numb_authors)
+
+      # Check if the author is already in the book
+      author_ids -= book.author_ids
+
+      author_ids.each do |author_id|
+        book.authors << Author.find(author_id)
+      end
+    end
   end
 end
