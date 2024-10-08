@@ -50,3 +50,10 @@ end
 gem "faker", "~> 3.4"
 
 gem "active_model_serializers", "~> 0.10.14"
+
+gem "rubocop", "~> 1.66"
+
+gem "rubocop-rails", "~> 2.26"
+
+
+gem "rubocop-performance", "~> 1.22"
