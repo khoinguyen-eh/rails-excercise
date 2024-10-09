@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_08_070008) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_08_144216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "author_books", id: false, force: :cascade do |t|
-    t.bigint "author_id", null: false
-    t.bigint "book_id", null: false
-    t.index ["author_id", "book_id"], name: "index_author_books_on_author_id_and_book_id"
-  end
-
   create_table "authors", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.datetime "dob"
-    t.boolean "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "pen_name"
+    t.text "bio"
+    t.boolean "is_verified"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_authors_on_user_id"
+  end
+
+  create_table "authors_books", id: false, force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.bigint "book_id", null: false
+    t.index ["author_id", "book_id"], name: "index_authors_books_on_author_id_and_book_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -40,4 +41,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_070008) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "dob"
+    t.boolean "gender"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "authors", "users"
 end
