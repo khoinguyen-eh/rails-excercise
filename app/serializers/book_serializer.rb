@@ -6,13 +6,15 @@ class BookSerializer < ActiveModel::Serializer
     if include_authors == 'id_only'
       object.authors.select(:id).map do |author|
         {
-          id: author.id
+          id: author.id,
+          user_id: author.user_id
         }
       end
     elsif include_authors == 'id_and_name'
       object.authors.select(:id, :first_name, :last_name).map do |author|
         {
           id: author.id,
+          user_id: author.user_id,
           first_name: author.first_name,
           last_name: author.last_name
         }

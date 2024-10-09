@@ -1,5 +1,6 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: %i[ show update destroy ]
+  before_action :check_authorization, only: %i[ update destroy ]
 
   # GET /authors
   def index
@@ -47,5 +48,15 @@ class AuthorsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def author_params
       params.require(:author).permit(:first_name, :last_name, :dob, :gender)
+    end
+
+    def current_user_id
+      request.env['current_user_id']
+    end
+
+    def check_authorization
+      return if current_user_id == @author.user_id
+
+      render json: { error: 'Unauthorized' }, status: :unauthorized
     end
 end

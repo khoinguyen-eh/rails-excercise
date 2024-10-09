@@ -55,5 +55,8 @@ gem "rubocop", "~> 1.66"
 
 gem "rubocop-rails", "~> 2.26"
 
+gem "redis", "~> 5.3"
 
 gem "rubocop-performance", "~> 1.22"
+
+gem "bcrypt", "~> 3.1"

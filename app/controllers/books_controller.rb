@@ -71,7 +71,7 @@ class BooksController < ApplicationController
   end
 
   def update_authors(book, author_ids)
-    authors = author_ids.map { |id| Author.find(id) } if author_ids
+    authors = author_ids&.map { |id| Author.find(id) }
     book.authors = authors
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Author not found" }, status: :not_found

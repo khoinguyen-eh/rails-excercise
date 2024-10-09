@@ -1,0 +1,1 @@
+AUTH_EXEMPT_ROUTES = YAML.load_file(Rails.root.join('config', 'auth_exempt_routes.yml'))['exempt_routes']

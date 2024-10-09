@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :author_books
+  resources :users
   get 'books/top_rated', to: 'books#top_rated'
   resources :books
   resources :authors
@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get 'authors/:author_id/books', to: 'books#index_by_author'
+
+  post 'login', to: 'users#login'
 end

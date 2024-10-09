@@ -1,0 +1,5 @@
+exempt_routes:
+  - path: "/login"
+    methods: ["POST"]
+  - path: "/users"
+    methods: ["POST"]
